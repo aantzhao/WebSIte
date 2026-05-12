@@ -7,7 +7,7 @@
         <a href="{{ .Permalink }}" style="text-decoration: none;">
             <h3 class="post-title">{{ .Title }}</h3>
         </a>
-        <div class="post-meta">🗓️ {{ .Date.Format "2006-01-02" }} | ⏱️ 阅读 {{ .ReadingTime }} 分钟</div>
+        <div class="post-meta">🗓️ {{ .Date.Format "2006-01-02" }} | 🗓️ {{ .Lastmod.Format "2006-01-02" }} |⏱️ 阅读 {{ .ReadingTime }} 分钟</div>
         <p style="color:var(--text-muted); line-height: 1.6; margin: 0;">{{ .Summary }}</p>
     </div>
     {{ else }}
