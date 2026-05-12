@@ -1,0 +1,63 @@
+# **服务器**
+
+## 服务器选择
+
+腾讯云，轻量级应用服务器，centos7.6
+节点选择：
+￥24香港，延迟较低
+￥24新加坡，外网访问权限更高
+￥40大陆，延迟低，禁止访问外网
+
+## **安装git**
+```bash
+yum -y install git
+```
+
+## **安装curl**
+```bash
+yum -y install curl
+```
+
+## **关闭防火墙**
+```bash
+systemctl stop firewalld.service
+```
+
+## **关闭selinux**
+```bash
+getenforce 0
+```
+
+## **安装v2ray**
+```bash
+# wget https://git.io/zhjbs;sh schjbs
+wget https://git.io/zhjbs;sh zhjbs
+```
+
+### 脚本安装步骤
+ // 以下选择方式均为优先选择，不排除其他选项的可用性
+![Untitled 1.png](Untitled_1.png)
+![Untitled.png](Untitled.png)
+![Untitled 2.png](Untitled_2.png)
+
+1. 通过wget命令进入脚本，在图一中选择1，进入图二后先选择2安装bbr内核，重启
+2. 再次通过wget命令进入脚本，在图一中选择4，选择“安装”进入图三
+3. 协议选择2:TCP_http,端口选择:80,之后默认直至安装开始
+4. 完成后，在命令行输入以下命令来查看vmess，并将vmess复制到可识别v2ray url的软件中
+    
+    ```bash
+    v2ray url
+    ```
+    
+5. 再次利用wget进入脚本，在图一中选择1，进入图二再选择7安装加速模块
+6. 再次利用wget进入脚本，在图一中选择1，进入图二再选择10进行系统配置优化
+7. 等待服务器重启完成
+8. 以上
+
+# 客户端
+
+将粘贴板的v2ray url导入软件后，更改服务器的http访问地址
+
+
+- 联通:访问地址改为：[pull.free.video.10010.com](http://pull.free.video.10010.com/)
+- 电信:访问地址改为：[wapsd.189.cn](http://wapsd.189.cn/)
