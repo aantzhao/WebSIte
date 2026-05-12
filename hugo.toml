@@ -1,6 +1,6 @@
 baseURL = "https://www.attsant.cn/"
 languageCode = "zh-cn"
-title = "NetSpace | 个人数字花园"
+title = "NetSpace | 个人数字blog"
 theme = "my-theme"
 
 # 开启这段配置，Hugo会自动把 content 下的文件夹名字作为导航分类
