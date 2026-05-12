@@ -9,3 +9,4 @@ theme = "my-theme"
   tag = "tags"
 [frontmatter]
   lastmod = [":git", "lastmod", "date"]
+  date = ["date", ":git", ":fileModTime"]
