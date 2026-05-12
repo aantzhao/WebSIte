@@ -17,7 +17,7 @@
 如果你对网站中的任何技术细节感兴趣，或者想探讨网络协议、系统底层修改等话题，欢迎通过以下方式交流：
 
 *   **Email**: [zzy51125112@163.com]
-*   **GitHub**: [@你的GitHub用户名](https://github.com/你的用户名)
+*   **GitHub**: [@aantzhao](https://github.com/aantzhao)
 
 ---
 *Powered by Cloudflare Global Edge Network ⚡️*
