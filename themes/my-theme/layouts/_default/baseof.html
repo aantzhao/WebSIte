@@ -5,34 +5,71 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ .Title }} - NetSpace</title>
     <style>
-        :root { --bg-color: #ffffff; --sidebar-bg: #f8f9fa; --text-main: #2c3e50; --text-muted: #6c757d; --accent-color: #0366d6; --border-color: #e1e4e8; --hover-bg: #f1f8ff; }
-        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; display: flex; min-height: 100vh; background-color: var(--bg-color); color: var(--text-main); }
-        .sidebar { width: 240px; background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 2rem 1.5rem; display: flex; flex-direction: column; }
-        .sidebar-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 2rem; color: var(--text-main); text-align: center; }
+        /* 1. 亮色模式变量（默认） */
+        :root { 
+            --bg-color: #ffffff; 
+            --sidebar-bg: #f8f9fa; 
+            --text-main: #2c3e50; 
+            --text-muted: #6c757d; 
+            --accent-color: #0366d6; 
+            --border-color: #e1e4e8; 
+            --hover-bg: #f1f8ff; 
+            --card-bg: #ffffff; /* 专门给卡片用的背景色 */
+        }
+
+        /* 2. 暗色模式变量（系统切换到深色时自动生效） */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-color: #0d1117;       /* 纯净的深色背景 */
+                --sidebar-bg: #161b22;     /* 稍微亮一点的侧边栏 */
+                --text-main: #c9d1d9;      /* 柔和的亮灰色文字 */
+                --text-muted: #8b949e;     /* 较暗的说明文字 */
+                --accent-color: #58a6ff;   /* 深色模式下的亮蓝色 */
+                --border-color: #30363d;   /* 极暗的边框 */
+                --hover-bg: #21262d;       /* 悬浮高亮 */
+                --card-bg: #0d1117;        /* 深色卡片背景 */
+            }
+        }
+
+        /* 增加 transition 动画，让昼夜切换时有丝滑的渐变 */
+        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; display: flex; min-height: 100vh; background-color: var(--bg-color); color: var(--text-main); transition: background-color 0.3s, color 0.3s; }
+        
+        /* 3. 修改侧边栏：宽度收窄至 200px，采用 flex 上下两端对齐 */
+        .sidebar { width: 200px; background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 2rem 1.2rem; display: flex; flex-direction: column; justify-content: space-between; transition: background-color 0.3s, border-color 0.3s; }
+        
+        .sidebar-top { display: flex; flex-direction: column; }
+        .sidebar-title { font-size: 1.4rem; font-weight: bold; margin-bottom: 2rem; color: var(--text-main); text-align: center; }
         .nav-links { list-style: none; padding: 0; margin: 0; }
         .nav-links li { margin-bottom: 0.5rem; }
-        /* 注意：这里的链接变成了真正的网址跳转 */
-        .nav-links a { text-decoration: none; color: var(--text-main); display: block; padding: 0.75rem 1rem; border-radius: 6px; transition: all 0.2s ease; }
+        .nav-links a { text-decoration: none; color: var(--text-main); display: block; padding: 0.6rem 0.8rem; border-radius: 6px; transition: all 0.2s ease; font-size: 0.95rem; }
         .nav-links a:hover { background-color: var(--hover-bg); color: var(--accent-color); font-weight: 500; }
+        
+        /* 4. 全新的页脚：固定在侧边栏底部，字号缩小，弱化存在感 */
+        .sidebar-footer { font-size: 0.75rem; color: var(--text-muted); text-align: center; border-top: 1px dashed var(--border-color); padding-top: 1rem; line-height: 1.8; }
+        .sidebar-footer a { color: var(--accent-color); text-decoration: none; }
+
+        /* 右侧主内容区 */
         .main-wrapper { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
         .content { flex: 1; padding: 2rem 4rem; max-width: 900px; margin: 0 auto; width: 100%; box-sizing: border-box; }
-        .footer { border-top: 1px solid var(--border-color); padding: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-muted); background-color: #fafbfc; margin-top: auto; }
-        .footer a { color: var(--accent-color); text-decoration: none; }
         
         /* 列表和文章通用样式 */
-        .post-item { border-bottom: 1px solid var(--border-color); padding: 1.5rem 0; }
+        .post-item { border-bottom: 1px solid var(--border-color); padding: 1.5rem 0; transition: border-color 0.3s; }
         .post-title { font-size: 1.4rem; color: var(--accent-color); margin: 0 0 0.5rem 0; transition: color 0.2s;}
-        .post-title:hover { color: #004c9e; }
+        .post-title:hover { opacity: 0.8; }
         .post-meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem; }
         .markdown-content { line-height: 1.8; font-size: 1.05rem; }
         .markdown-content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; margin-top: 2rem; }
-        .markdown-content code { background: #f1f8ff; padding: 2px 5px; border-radius: 4px; font-family: monospace; }
+        /* 代码块的深色适应 */
+        .markdown-content code { background: var(--hover-bg); padding: 2px 5px; border-radius: 4px; font-family: monospace; }
         
+        /* 手机端适配 */
         @media (max-width: 768px) {
             body { flex-direction: column; }
-            .sidebar { width: auto; border-right: none; padding: 1rem; }
-            .nav-links { display: flex; justify-content: space-between; overflow-x: auto; white-space: nowrap; }
+            .sidebar { width: auto; border-right: none; border-bottom: 1px solid var(--border-color); padding: 1rem; }
+            .nav-links { display: flex; justify-content: space-between; overflow-x: auto; white-space: nowrap; margin-bottom: 0; }
             .nav-links a { padding: 0.5rem; }
+            /* 手机端顶部空间宝贵，自动隐藏页脚 */
+            .sidebar-footer { display: none; }
             .content { padding: 1.5rem; }
             .main-wrapper { height: auto; overflow-y: visible; }
         }
@@ -40,23 +77,30 @@
 </head>
 <body>
     <aside class="sidebar">
-        <div class="sidebar-title">👨‍💻 NetSpace</div>
-        <ul class="nav-links">
-            <li><a href="/">🏠 首页</a></li>
-            <li><a href="/blog/">📝 博客文章</a></li>
-            <li><a href="/network/">⚙️ 网络折腾</a></li>
-            <li><a href="/tools/">🚀 实用工具</a></li>
-        </ul>
+        <!-- 侧边栏上半部分：导航 -->
+        <div class="sidebar-top">
+            <div class="sidebar-title">👨‍💻 NetSpace</div>
+            <ul class="nav-links">
+                <li><a href="/">🏠 首页</a></li>
+                <li><a href="/blog/">📝 博客文章</a></li>
+                <li><a href="/network/">⚙️ 网络折腾</a></li>
+                <li><a href="/tools/">🚀 实用工具</a></li>
+            </ul>
+        </div>
+        
+        <!-- 侧边栏下半部分：页脚 -->
+        <footer class="sidebar-footer">
+            <p>
+                GitHub: <a href="https://github.com/aantzhao" target="_blank">@aantzhao</a><br>
+                Powered by CF Pages
+            </p>
+        </footer>
     </aside>
+
     <div class="main-wrapper">
         <main class="content">
-            <!-- 魔法指令：这里是留给其他页面填入内容的“坑位” -->
             {{ block "main" . }}{{ end }}
         </main>
-        <footer class="footer">
-            <p>联系方式: <a href="mailto:你的邮箱@example.com">Email</a> | GitHub: <a href="https://github.com/aantzhao" target="_blank">@aantzhao</a></p>
-            <p>Powered by Cloudflare Pages & Hugo ⚡️</p>
-        </footer>
     </div>
 </body>
 </html>
