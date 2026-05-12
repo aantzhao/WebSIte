@@ -20,4 +20,4 @@
 *   **GitHub**: [@aantzhao](https://github.com/aantzhao)
 
 ---
-*Powered by Cloudflare Global Edge Network ⚡️*
+*Powered by Cloudflare Global Edge Network && GitHub⚡️*
