@@ -3,7 +3,9 @@
         <h1 style="color: var(--accent-color); margin-bottom: 0.5rem;">{{ .Title }}</h1>
         <div class="post-meta" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; margin-bottom: 2rem;">
             <span>🗓️ 发布于: {{ .Date.Format "2006-01-02" }}</span>
-            
+            <span style="margin-left: 15px; color: var(--accent-color);">
+                    🔄 最后修订: {{ .Lastmod.Format "2006-01-02" }}
+                </span>
             <!-- 只有当 Git 记录的最后修改时间比发布时间晚 24 小时以上才显示，避免显示小修改 -->
             {{ if gt .Lastmod .Date }}
                 {{ if ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02") }}
