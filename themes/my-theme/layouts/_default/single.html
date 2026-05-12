@@ -3,7 +3,14 @@
         <h1 style="color: var(--accent-color); margin-bottom: 0.5rem;">{{ .Title }}</h1>
         
         <div class="post-meta" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; margin-bottom: 2rem;">
-            🗓️ 发布时间: {{ .Date.Format "2006-01-02" }} | ⏱️ 预计阅读 {{ .ReadingTime }} 分钟
+            🗓️ 发布时间: {{ .Date.Format "2006-01-02" }} 
+            
+            <!-- 逻辑判断：如果设置了 lastmod 且它和发布日期不同，才显示更新时间 -->
+            {{ if and .Lastmod (ne .Date.Unix .Lastmod.Unix) }}
+            | 🔄 最后更新: {{ .Lastmod.Format "2006-01-02" }}
+            {{ end }}
+            
+            | ⏱️ 预计阅读 {{ .ReadingTime }} 分钟
         </div>
         
         <!-- 这里是 Markdown 正文区 -->
