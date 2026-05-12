@@ -2,8 +2,7 @@
 
 > 🚀 本项目采用 **GitHub + Cloudflare Pages** 的全自动 CI/CD 流程构建与部署。
 
-[![Deploy Status](https://img.shields.io/badge/Deploy-Cloudflare%20Pages-F38020?style=flat-square&logo=cloudflare)](https://pages.cloudflare.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![网站主页]]([website.anntzhao.workers.dev](https://website.anntzhao.workers.dev/))
 
 ## 📖 关于本站
 
