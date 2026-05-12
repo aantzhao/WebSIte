@@ -1,155 +1,18 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ .Site.Title }}</title>
-    <style>
-        :root {
-            --bg-color: #ffffff;
-            --sidebar-bg: #f8f9fa;
-            --text-main: #2c3e50;
-            --text-muted: #6c757d;
-            --accent-color: #0366d6;
-            --border-color: #e1e4e8;
-            --hover-bg: #f1f8ff;
-        }
+{{ define "main" }}
+    <h1>欢迎来到我的主页 👋</h1>
+    <p style="color:var(--text-muted); line-height: 1.6; margin-bottom: 3rem;">
+        这里是我的个人数字花园。我是一名网络专业人士，喜欢折腾路由器、交换机、以及各种 Android 底层系统。<br>
+        点击左侧菜单浏览我的文章、项目和工具集。
+    </p>
 
-        body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; display: flex; min-height: 100vh; background-color: var(--bg-color); color: var(--text-main); }
-        .sidebar { width: 120px; background-color: var(--sidebar-bg); border-right: 1px solid var(--border-color); padding: 2rem 1.5rem; display: flex; flex-direction: column; }
-        .sidebar-title { font-size: 1.5rem; font-weight: bold; margin-bottom: 2rem; color: var(--text-main); text-align: center; }
-        .nav-links { list-style: none; padding: 0; margin: 0; }
-        .nav-links li { margin-bottom: 0.5rem; }
-        .nav-links a { text-decoration: none; color: var(--text-main); display: block; padding: 0.75rem 1rem; border-radius: 6px; transition: all 0.2s ease; cursor: pointer; }
-        .nav-links a:hover, .nav-links a.active { background-color: var(--hover-bg); color: var(--accent-color); font-weight: 500; }
-        .main-wrapper { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; }
-        .content { flex: 1; padding: 2rem 4rem; max-width: 900px; margin: 0 auto; width: 100%; box-sizing: border-box; }
-        .page-section { display: none; animation: fadeIn 0.3s ease; }
-        .page-section.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        #home { text-align: center; margin-top: 10vh; }
-        
-        /* 博客样式 */
-        .post-item { border-bottom: 1px solid var(--border-color); padding: 1.5rem 0; }
-        .post-title { font-size: 1.4rem; color: var(--accent-color); margin: 0 0 0.5rem 0; cursor: pointer; transition: color 0.2s;}
-        .post-title:hover { color: #004c9e; }
-        .post-meta { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.8rem; }
-        .post-summary { line-height: 1.6; margin: 0; }
-
-        /* 卡片与网格样式 */
-        .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
-        .project-card { border: 1px solid var(--border-color); border-radius: 8px; padding: 1.5rem; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;}
-        .project-card:hover { transform: translateY(-5px); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        .project-card h3 { margin: 0 0 0.5rem 0; color: var(--accent-color); }
-        
-        .tools-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.5rem; text-align: center; }
-        .tool-item { background: var(--sidebar-bg); padding: 2rem 1rem; border-radius: 10px; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
-        .tool-item:hover { border-color: var(--accent-color); background: white; }
-        .tool-icon { font-size: 2.5rem; margin-bottom: 1rem; display: block; }
-
-        .footer { border-top: 0.5px solid var(--border-color); padding: 1.5rem; text-align: center; font-size: 0.9rem; color: var(--text-muted); background-color: #fafbfc; margin-top: auto; }
-        .footer a { color: var(--accent-color); text-decoration: none; }
-
-        @media (max-width: 768px) {
-            body { flex-direction: column; }
-            .sidebar { width: auto; border-right: none; padding: 1rem; }
-            .nav-links { display: flex; justify-content: space-between; overflow-x: auto; white-space: nowrap; }
-            .nav-links a { padding: 0.5rem; }
-            .content { padding: 1.5rem; }
-            .main-wrapper { height: auto; overflow-y: visible; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- 左侧导航 -->
-    <aside class="sidebar">
-        <div class="sidebar-title">👨‍💻 NetSpace</div>
-        <ul class="nav-links">
-            <li><a class="nav-btn active" onclick="switchPage('home', this)">🏠 首页</a></li>
-            <li><a class="nav-btn" onclick="switchPage('blog', this)">📝 博客文章</a></li>
-            <li><a class="nav-btn" onclick="switchPage('network', this)">⚙️ 网络折腾</a></li>
-            <li><a class="nav-btn" onclick="switchPage('tools', this)">🚀 实用工具</a></li>
-        </ul>
-    </aside>
-
-    <!-- 右侧主体 -->
-    <div class="main-wrapper">
-        <main class="content">
-            
-            <!-- 1. 首页 -->
-            <section id="home" class="page-section active">
-                <h1>欢迎来到我的主页 👋</h1>
-                <p style="color:var(--text-muted); line-height: 1.6;">
-                    这里是我的个人数字花园。我是一名网络专业人士，喜欢折腾路由器、交换机、以及各种 Android 底层系统。<br>
-                    点击左侧菜单浏览我的文章、项目和工具集。
-                </p>
-            </section>
-
-            <!-- 2. 博客文章界面 (动态拉取 content/blog 下的 md 文件) -->
-            <section id="blog" class="page-section">
-                <h2>📝 最新文章</h2>
-                {{ range where .Site.RegularPages "Section" "blog" }}
-                <div class="post-item">
-                    <a href="{{ .Permalink }}" style="text-decoration: none;">
-                        <h3 class="post-title">{{ .Title }}</h3>
-                    </a>
-                    <div class="post-meta">🗓️ {{ .Date.Format "2006-01-02" }} | ⏱️ 阅读 {{ .ReadingTime }} 分钟</div>
-                    <p class="post-summary">{{ .Summary }}</p>
-                </div>
-                {{ else }}
-                <p style="color:var(--text-muted);">暂无文章，请在 content/blog 目录下添加 .md 文件。</p>
-                {{ end }}
-            </section>
-
-            <!-- 3. 网络折腾界面 (动态拉取 content/network 下的 md 文件) -->
-            <section id="network" class="page-section">
-                <h2>⚙️ 实验室与项目</h2>
-                <div class="project-grid">
-                    {{ range where .Site.RegularPages "Section" "network" }}
-                    <div class="project-card" onclick="window.location.href='{{ .Permalink }}'">
-                        <h3>{{ .Title }}</h3>
-                        <p style="font-size:0.9rem; color:var(--text-muted);">{{ .Summary }}</p>
-                    </div>
-                    {{ else }}
-                    <p style="color:var(--text-muted);">暂无项目，请在 content/network 目录下添加 .md 文件。</p>
-                    {{ end }}
-                </div>
-            </section>
-
-            <!-- 4. 实用工具界面 (动态拉取 content/tools 下的 md 文件) -->
-            <section id="tools" class="page-section">
-                <h2>🚀 线上工具箱</h2>
-                <div class="tools-grid">
-                    {{ range where .Site.RegularPages "Section" "tools" }}
-                    <div class="tool-item" onclick="window.location.href='{{ .Permalink }}'">
-                        <span class="tool-icon">🔧</span>
-                        <strong>{{ .Title }}</strong>
-                    </div>
-                    {{ else }}
-                    <p style="color:var(--text-muted); grid-column: 1 / -1;">暂无工具，请在 content/tools 目录下添加 .md 文件。</p>
-                    {{ end }}
-                </div>
-            </section>
-
-        </main>
-
-        <!-- 页脚 -->
-        <footer class="footer">
-            <p>联系方式: <a href="mailto:你的邮箱@example.com">Email</a> | GitHub: <a href="https://github.com/aantzhao" target="_blank">@aantzhao</a></p>
-            <p>Powered by Cloudflare Pages ⚡️</p>
-        </footer>
-    </div>
-
-    <script>
-        function switchPage(pageId, btnElement) {
-            const pages = document.querySelectorAll('.page-section');
-            pages.forEach(page => page.classList.remove('active'));
-            const btns = document.querySelectorAll('.nav-btn');
-            btns.forEach(btn => btn.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-            btnElement.classList.add('active');
-        }
-    </script>
-</body>
-</html>
+    <h2>🌟 全站最新动态</h2>
+    <!-- 自动抓取全站最新的 3 篇文章展示在首页 -->
+    {{ range first 3 .Site.RegularPages }}
+        <div class="post-item">
+            <a href="{{ .Permalink }}" style="text-decoration: none;">
+                <h3 class="post-title">{{ .Title }}</h3>
+            </a>
+            <div class="post-meta">🗓️ {{ .Date.Format "2006-01-02" }} | 📁 栏目: {{ .Section }}</div>
+        </div>
+    {{ end }}
+{{ end }}
