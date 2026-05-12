@@ -7,4 +7,5 @@ theme = "my-theme"
 [taxonomies]
   category = "categories"
   tag = "tags"
-  
+[frontmatter]
+  lastmod = [":git", "lastmod", "date"]

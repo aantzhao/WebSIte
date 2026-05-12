@@ -62,18 +62,29 @@
         .markdown-content { line-height: 1.8; font-size: 1.05rem; }
         .markdown-content h2 { border-bottom: 1px solid var(--border-color); padding-bottom: 0.3rem; margin-top: 2rem; }
         /* 代码块的深色适应 */
-        /* 完美的 Markdown 表格适配 */
+        /* 响应式表格：在大屏幕撑满，小屏幕可滑动且不溢出 */
         .markdown-content table {
+            display: table; /* 恢复表格特性 */
             width: 100%;
+            max-width: 100%; /* 严禁超过父容器 */
             border-collapse: collapse;
             margin: 2rem 0;
-            display: block; /* 手机端防止表格过宽撑破屏幕 */
             overflow-x: auto;
+            word-break: break-all; /* 允许单元格内文字换行 */
         }
+
+        /* 移动端优化：给表格外层加一个自动滚动的“保护壳” */
+        @media (max-width: 768px) {
+            .markdown-content table {
+                display: block; /* 手机端变成块级元素，激活滚动 */
+                -webkit-overflow-scrolling: touch; /* 丝滑滚动体验 */
+            }
+        }
+
         .markdown-content th, .markdown-content td {
             border: 1px solid var(--border-color);
-            padding: 0.75rem 1rem;
-            text-align: left;
+            padding: 10px 15px;
+            min-width: 80px; /* 保证最小可读性，不至于挤成一团 */
         }
         .markdown-content th {
             background-color: var(--sidebar-bg); /* 表头使用侧边栏同款底色 */

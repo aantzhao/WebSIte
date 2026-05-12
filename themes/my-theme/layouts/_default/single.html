@@ -1,16 +1,19 @@
 {{ define "main" }}
     <article>
         <h1 style="color: var(--accent-color); margin-bottom: 0.5rem;">{{ .Title }}</h1>
-        
         <div class="post-meta" style="border-bottom: 1px solid var(--border-color); padding-bottom: 1.5rem; margin-bottom: 2rem;">
-            🗓️ 发布时间: {{ .Date.Format "2006-01-02" }} 
+            <span>🗓️ 发布于: {{ .Date.Format "2006-01-02" }}</span>
             
-            <!-- 逻辑判断：如果设置了 lastmod 且它和发布日期不同，才显示更新时间 -->
-            {{ if and .Lastmod (ne .Date.Unix .Lastmod.Unix) }}
-            | 🔄 最后更新: {{ .Lastmod.Format "2006-01-02" }}
+            <!-- 只有当 Git 记录的最后修改时间比发布时间晚 24 小时以上才显示，避免显示小修改 -->
+            {{ if gt .Lastmod .Date }}
+                {{ if ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02") }}
+                <span style="margin-left: 15px; color: var(--accent-color);">
+                    🔄 最后修订: {{ .Lastmod.Format "2006-01-02" }}
+                </span>
+                {{ end }}
             {{ end }}
             
-            | ⏱️ 预计阅读 {{ .ReadingTime }} 分钟
+            <span style="margin-left: 15px;">⏱️ {{ .ReadingTime }} min read</span>
         </div>
         
         <!-- 这里是 Markdown 正文区 -->
