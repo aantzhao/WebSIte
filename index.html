@@ -1,1 +1,185 @@
-hello world
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NetSpace | 个人数字花园</title>
+    <style>
+        /* 全局变量定义颜色，方便后续一键修改主题 */
+        :root {
+            --bg-color: #ffffff;
+            --sidebar-bg: #f8f9fa;
+            --text-main: #2c3e50;
+            --text-muted: #6c757d;
+            --accent-color: #0366d6;
+            --border-color: #e1e4e8;
+        }
+
+        /* 基础页面重置 */
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            display: flex;
+            min-height: 100vh; /* 让页面至少和屏幕一样高 */
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        /* ====== 2. 左侧导航栏 ====== */
+        .sidebar {
+            width: 240px;
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid var(--border-color);
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            color: var(--text-main);
+            text-align: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(3, 102, 214, 0.1);
+            color: var(--accent-color);
+        }
+
+        /* ====== 右侧主区域 (包含内容和页脚) ====== */
+        .main-wrapper {
+            flex: 1; /* 占据剩下的所有宽度 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ====== 1. 主页内容居中 ====== */
+        .content {
+            flex: 1; /* 撑开高度，把页脚挤到最下面 */
+            display: flex;
+            justify-content: center; /* 水平居中 */
+            align-items: center;     /* 垂直居中 */
+            padding: 2rem;
+        }
+
+        .center-box {
+            text-align: center;
+            max-width: 600px;
+        }
+
+        .center-box h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .center-box p {
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* ====== 3. 页脚设置 ====== */
+        .footer {
+            border-top: 1px solid var(--border-color);
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            background-color: #fafbfc;
+        }
+
+        .footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ====== 响应式设计 (针对手机端适配) ====== */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column; /* 手机上变成上下排列 */
+            }
+            .sidebar {
+                width: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                padding: 1rem;
+            }
+            .nav-links {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+            }
+            .nav-links li {
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 左侧栏目 -->
+    <aside class="sidebar">
+        <div class="sidebar-title">👨‍💻 NetSpace</div>
+        <ul class="nav-links">
+            <li><a href="#">🏠 首页</a></li>
+            <li><a href="#">📝 博客文章</a></li>
+            <li><a href="#">⚙️ 网络折腾</a></li>
+            <li><a href="#">🚀 实用工具</a></li>
+            <li><a href="#">📬 关于我</a></li>
+        </ul>
+    </aside>
+
+    <!-- 右侧主体 -->
+    <div class="main-wrapper">
+        
+        <!-- 核心内容区 -->
+        <main class="content">
+            <div class="center-box">
+                <h1>欢迎来到我的主页 👋</h1>
+                <p>
+                    这里是我的个人数字花园。我是一名网络专业人士，喜欢折腾路由器、交换机、以及各种 Android 底层系统。<br>
+                    网站正在持续建设中，未来会在这里分享我的技术笔记和生活日常。
+                </p>
+                <!-- 如果你想放个按钮可以取消注释下面这行 -->
+                <!-- <a href="#" style="background:var(--accent-color);color:white;padding:10px 20px;border-radius:5px;text-decoration:none;">了解更多</a> -->
+            </div>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="footer">
+            <p>
+                联系方式: <a href="mailto:你的邮箱@example.com">Email</a> | 
+                GitHub: <a href="https://github.com/aantzhao" target="_blank">@aantzhao</a>
+            </p>
+            <p>Powered by Cloudflare Pages ⚡️</p>
+        </footer>
+
+    </div>
+
+</body>
+</html>
